@@ -9,7 +9,7 @@ public class UI_Assistant : MonoBehaviour
 
     private void Awake()
     {
-        messageText = transform.Find("message").Find("messageText").GetComponent<Text>();
+        messageText = GetComponent<Text>();
     }
 
     private void Start()
