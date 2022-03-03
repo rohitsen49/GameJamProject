@@ -15,6 +15,6 @@ public class UI_Assistant : MonoBehaviour
 
     private void Start()
     {
-        textWriter.AddWriter(messageText, "Hello World!", 1f);
+        textWriter.AddWriter(messageText, "This is the assisstant speaking, hello and goodbye, see you next time!", .1f, true);
     }
 }
