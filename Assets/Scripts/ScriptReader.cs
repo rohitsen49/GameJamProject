@@ -7,87 +7,81 @@ using TMPro;
 
 public class ScriptReader : MonoBehaviour
 {
-    [SerializeField] private float typingSpeed = 0.04f;
-    [SerializeField] private GameObject continueIcon;
-    private TextAsset _inkJsonFile;
-    private Story _StoryScript;
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private TextMeshProUGUI dialogueText;
 
-    private Coroutine displayLineCoroutine;
-    private bool canContinueToNextLine = false;
+    [Header("Choices UI")]
+    [SerializeField] private GameObject[] choices;
+    private TextMeshProUGUI[] choiceText;
 
-    public TMP_Text dialougueBox;
-    public TMP_Text nameTag;
-    void Start()
+    private Story currentStory;
+
+    public bool dialogueIsPlaying { get; private set; }
+
+    private static ScriptReader instance;
+
+    private void Awake()
     {
-        LoadStory();
+        if (instance != null)
+        {
+            Debug.LogWarning("Found more than one Dialogue manager in scene");
+        }
+        instance = this;
+    }
+
+    public static ScriptReader GetInstance()
+    {
+        return instance;
+    }
+
+    private void Start()
+    {
+        dialogueIsPlaying = false;
+        dialoguePanel.SetActive(false);
     }
 
     private void Update()
     {
-        if (canContinueToNextLine && Input.GetKeyDown(KeyCode.Mouse0))
+        // return right away if dialogue isnt playing
+        if (!dialogueIsPlaying)
         {
-            DisplayNextLine();
+            return;
+        }
+
+        // handle continuing to the next line in the dialogue when submit is pressed
+        if (InputManager.GetInstance().GetSubmitPressed())
+        {
+            ContinueStory();
         }
     }
 
-    void LoadStory()
+    public void EnterDialogueMode(TextAsset inkJSON)
     {
-        _StoryScript = new Story(_inkJsonFile.text);
+        currentStory = new Story(inkJSON.text);
+        dialogueIsPlaying = true;
+        dialoguePanel.SetActive(true);
 
-        _StoryScript.BindExternalFunction("Name", (string charName) => ChangeName(charName));
+        ContinueStory();
     }
 
-    public void DisplayNextLine()
+    private void ExitDialogueMode()
     {
-        if (_StoryScript.canContinue) // Checking if there is content to go through
+        dialogueIsPlaying = false;
+        dialoguePanel.SetActive(false);
+        dialogueText.text = "";
+    }
+
+    private void ContinueStory()
+    {
+        if (currentStory.canContinue)
         {
-            if (displayLineCoroutine != null)
-            {
-                StopCoroutine(displayLineCoroutine);
-            }
-            displayLineCoroutine = StartCoroutine(DisplayLine(_StoryScript.Continue()));
-            string text = _StoryScript.Continue(); //get next line
-            text = text?.Trim(); //Removes white space from text
+            dialogueText.text = currentStory.Continue();
         }
         else
         {
-            dialougueBox.text = "END";
+            ExitDialogueMode();
         }
     }
 
-    private IEnumerator DisplayLine(string line)
-    {
-        //empty the dialouge text
-        dialougueBox.text = "";
-        //hide items while text is typing
-        continueIcon.SetActive(false);
-
-        canContinueToNextLine = false;
-
-        //display each letter one at a time
-        foreach (char letter in line.ToCharArray())
-        {
-            //if the submit button is pressed, finish up displaying the line right away
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                dialougueBox.text = line;
-                break;
-            }
-
-            dialougueBox.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
-        }
-
-        //actions to take after the entire line has finished displaying
-        continueIcon.SetActive(true);
-
-        canContinueToNextLine = true;
-    }
-
-    public void ChangeName(string name)
-    {
-        string SpeakerName = name;
-
-        nameTag.text = SpeakerName;
-    }
 }
