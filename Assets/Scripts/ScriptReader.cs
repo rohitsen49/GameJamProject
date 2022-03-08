@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Ink.Runtime;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class ScriptReader : MonoBehaviour
 {
@@ -41,6 +42,16 @@ public class ScriptReader : MonoBehaviour
     {
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(panelActivate);
+
+        //get all of the choices text
+        choiceText = new TextMeshProUGUI[choices.Length];
+        int index = 0;
+        foreach (GameObject choice in choices)
+        {
+            choiceText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+            index++;
+        }
+
     }
 
     private void Update()
@@ -79,6 +90,7 @@ public class ScriptReader : MonoBehaviour
         if (currentStory.canContinue)
         {
             dialogueText.text = currentStory.Continue();
+            DisplayChoices();
         }
         else
         {
@@ -86,4 +98,26 @@ public class ScriptReader : MonoBehaviour
         }
     }
 
+    private void DisplayChoices()
+    {
+        //List<Choice> currentChoices = currentStory.currentChoices;
+
+        //if (currentChoices.Count > choices.Length)
+        //{
+            //Debug.LogError("More choices were given than the UI can supporyt. Number of choices given: " + currentChoices.Count);
+        //}
+
+        //int index = 0;
+
+        //foreach(Choice choice in currentChoices)
+        //{
+            //choice[index].gameObject.SetActive(true);
+            //choiceText[index].text = choice.text;
+            //index++;
+        //}
+        //for (int i = index; i < choices.Length; i++)
+        //{
+            //choices[i].gameObject.SetActive(false);
+        //}
+    }
 }
