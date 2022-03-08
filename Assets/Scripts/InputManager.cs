@@ -70,8 +70,10 @@ public class InputManager : MonoBehaviour
 
     public void SubmitPressed(InputAction.CallbackContext context)
     {
+        print("Submit Pressed");
         if (context.performed)
         {
+            print("True");
             submitPressed = true;
         }
         else if (context.canceled)

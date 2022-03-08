@@ -19,6 +19,8 @@ public class ScriptReader : MonoBehaviour
 
     public bool dialogueIsPlaying { get; private set; }
 
+    public bool panelActivate = true;
+
     private static ScriptReader instance;
 
     private void Awake()
@@ -38,7 +40,7 @@ public class ScriptReader : MonoBehaviour
     private void Start()
     {
         dialogueIsPlaying = false;
-        dialoguePanel.SetActive(false);
+        dialoguePanel.SetActive(panelActivate);
     }
 
     private void Update()
