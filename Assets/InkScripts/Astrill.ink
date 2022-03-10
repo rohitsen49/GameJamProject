@@ -1,3 +1,4 @@
+VAR scriptEnding = 0
 Why hello there human~ #speaker:Astrill #portrait:astrill-serious
 -> main
 
@@ -16,3 +17,4 @@ Well, anything else? #speaker:Astrill #portrait:astrill-neutral
 + [no]
  Alright then... #portrait:astrill-sad
   -> END
+  ~scriptEnding = 1
