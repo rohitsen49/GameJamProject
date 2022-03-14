@@ -29,6 +29,11 @@ public class ScriptReader : MonoBehaviour
     public UnityEvent<int> OnEnd = new UnityEvent<int>();
     private int scriptEnding = 0;
 
+    //from Chris
+    private RandomContainer randomC;
+    public AudioClip[] eshuClips;
+    public AudioClip[] astrillClips;
+
     public bool dialogueIsPlaying { get; private set; }
 
     private bool canContinueToNextLine = false;
@@ -62,6 +67,9 @@ public class ScriptReader : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(panelActivate);
 
+        //from Chris warning make sure only one random container on the level
+        randomC = FindObjectOfType<RandomContainer>();
+
         //get all of the choices text
         choicesText = new TextMeshProUGUI[choices.Length];
         int index = 0;
@@ -90,6 +98,7 @@ public class ScriptReader : MonoBehaviour
 
     public void EnterDialogueMode(TextAsset inkJSON)
     {
+        randomC.PlaySound(false);
         currentStory = new Story(inkJSON.text);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
@@ -97,8 +106,10 @@ public class ScriptReader : MonoBehaviour
         ContinueStory();
     }
 
-    private void ExitDialogueMode()
+    private IEnumerator ExitDialogueMode()
     {
+        yield return new WaitForSeconds(0.2f);
+
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
@@ -110,12 +121,13 @@ public class ScriptReader : MonoBehaviour
 
     private void ContinueStory()
     {
+        randomC.PlaySound(false);
         if (currentStory.canContinue)
         {
             //set text for current dialogue line
             if (displayLineCoroutine != null)
             {
-                StopCoroutine(DisplayLine(currentStory.Continue()));
+                StopCoroutine(displayLineCoroutine);
             }
             displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
             // handle tags
@@ -123,7 +135,7 @@ public class ScriptReader : MonoBehaviour
         }
         else
         {
-            ExitDialogueMode();
+            StartCoroutine(ExitDialogueMode());
         }
     }
 
@@ -163,6 +175,7 @@ public class ScriptReader : MonoBehaviour
             else
             {
                 dialogueText.text += letter;
+                randomC.PlaySound(false);
                 yield return new WaitForSeconds(typingSpeed);
             }
         }
@@ -199,6 +212,14 @@ public class ScriptReader : MonoBehaviour
             {
                 case SPEAKER_TAG:
                     displayNameText.text = tagValue;
+                    if (tagValue == "Eshu")
+                    {
+                        randomC.clips = eshuClips;
+                    }
+                    else if (tagValue == "Astrill")
+                    {
+                        randomC.clips = astrillClips;
+                    }
                     break;
                 case PORTRAIT_TAG:
                     portraitAnimator.Play(tagValue);
