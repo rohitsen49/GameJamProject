@@ -72,6 +72,16 @@ did to make this! #speaker:Astrill #portrait:astrill-flustered
 It’s nothing really just a simple family recipe. #speaker:Player
 Well I think it’s wonderful! You wouldn’t mind sharing the recipe would you? #speaker:Eshu #portrait:eshu-neutral-nowave
 Oh nonono Human, you must give the recipe to me! With this I could have the entire galaxy kneel before my delicious cooking! #speaker:Astrill #portrait:astrill-angry
+Well... if you want you can come back whenever I’m off shift and I could teach you how to make it? #speaker:Player
+I’d like that very much, thank you! #speaker:Eshu #portrait:eshu-neutral-nowave
+Hmmm, I suppose I’ll take you up on your offer... #speaker:Astrill #portrait:astrill-sad
+Right then... come back tomorrow and I should be free. #speaker:Player
+The two finish up their meals, pay the bill and head off. #speaker:???
+Thank you very much! #speaker:Eshu #portrait:eshu-friendly-nowave
+Until next time human! #speaker:Astrill #portrait:astrill-neutral
+As the two exit, you suddenly feel a sense of confusion and dread. #speaker:???
+What have I just gotten myself into... #speaker:Player
+-> END
 
 
 

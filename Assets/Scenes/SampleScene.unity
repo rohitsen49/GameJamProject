@@ -717,11 +717,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 81b27be1d87b456448921f0ab75a2504, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 150d9a914b7cc5846bda2ccdf09aeb84, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -731,7 +731,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5a22dcdcd200be408fdf10ce5c34c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkJSON: {fileID: 4900000, guid: 10c8b55ee1d643b4a80f74d7a8e83859, type: 3}
+  inkJSON: {fileID: 4900000, guid: 14e61bd737c5d774ebc93ed2270b5f70, type: 3}
 --- !u!1 &882623701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,7 +1037,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -178, y: 68}
+  m_AnchoredPosition: {x: -170, y: -104}
   m_SizeDelta: {x: 147.55, y: 32.48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &882623703
@@ -1565,7 +1565,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: OHOHOHOHO
+  m_text: Tap spacebar to proceed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 91720e7720e6e1047b64157ec9b52151, type: 2}
   m_sharedMaterial: {fileID: -3307571529292790938, guid: 91720e7720e6e1047b64157ec9b52151, type: 2}
@@ -2058,8 +2058,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a5c10de82a4df3b43992bf782b2c1a5b, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
