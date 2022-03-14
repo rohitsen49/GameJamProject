@@ -6,6 +6,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class ScriptReader : MonoBehaviour
 {
@@ -113,6 +114,8 @@ public class ScriptReader : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+
+        SceneManager.LoadScene("Ending");
 
         //From Ryan Scheppler
         scriptEnding = (int)currentStory.variablesState["scriptEnding"];
